@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -17,8 +18,8 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view("pages.article");
+    {   $articles = Article::all();
+        return view("pages.article", compact("articles"));
     }
 
     /**
@@ -28,7 +29,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view("pages.createArticle" );
     }
 
     /**
@@ -39,7 +41,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = New Article;
+        $store->title = $request->title;
+        $store->text = $request->text;
+        $store->user_id = Auth::user()->id;
+        $store->save();
+        return redirect("/article");
     }
 
     /**
@@ -59,9 +66,10 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        //
+        $edit = Article::find($id);
+        return view ("pages.editArticles", compact("edit"));
     }
 
     /**
@@ -71,9 +79,14 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
-        //
+        $update = Article::find($id);
+        $update->title = $request->title;
+        $update->text = $request->text;
+        $update->user_id = Auth::user()->id;
+        $update->save();
+        return redirect("/article");
     }
 
     /**
@@ -84,6 +97,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article ->delete();
+        return redirect ("/article");
     }
 }

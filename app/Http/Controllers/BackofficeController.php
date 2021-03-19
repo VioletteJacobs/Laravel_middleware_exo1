@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Backoffice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,8 @@ class BackofficeController extends Controller
      */
     public function index()
     {
-        return view("pages.backoffice");
+        $articles = Article::all();
+        return view("pages.backoffice", compact("articles"));
     }
 
     /**
