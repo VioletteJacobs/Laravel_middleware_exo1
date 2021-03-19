@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Backoffice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BackofficeController extends Controller
 {
-    public function __connect(){
-        $this->middleware("auth");
+    // public function __construct()
+    // {
+    //     $this->middleware("auth")->only(["index"]);
+    // }
+    public function __construct()
+    {
+        $this->middleware("isConnected");
     }
     /**
      * Display a listing of the resource.
