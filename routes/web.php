@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BackofficeController;
+use App\Models\Backoffice;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +22,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::resource('article', ArticleController::class);
+Route::resource('backoffice', BackofficeController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
