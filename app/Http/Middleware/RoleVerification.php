@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleVerification
 {
@@ -16,12 +17,11 @@ class RoleVerification
      */
     public function handle(Request $request, Closure $next)
     {
-        // if () {
-        //     # code...
-        //     return $next($request);
-        // } else {
-        //     # code...
-        // }
+        if (Auth::user()->role_id == 1) {
+            return $next($request);
+        } else {
+            return redirect()->back();
+        }
         
     }
 }

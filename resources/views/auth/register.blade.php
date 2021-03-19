@@ -44,12 +44,10 @@
                             <div class="col-md-6">
                                 <select name="role_id" id="">
                                     @foreach ($roles as $item)
-                                    <option value="{{$item->id}}" name="role_id">{{$item->name}}</option>
+                                    <option value="{{$item->id}}" name="role_id" equired autocomplete="role_id">{{$item->name}}</option>
                                         
                                     @endforeach
                                 </select>
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

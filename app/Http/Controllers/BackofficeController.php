@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class BackofficeController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware("auth")->only(["index"]);
-    // }
     public function __construct()
     {
-        $this->middleware("isConnected");
+        $this->middleware(["auth", "RoleVerification"]);
     }
+    // public function __construct()
+    // {
+    //     $this->middleware("isConnected");
+    // }
     /**
      * Display a listing of the resource.
      *
