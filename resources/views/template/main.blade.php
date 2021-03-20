@@ -8,30 +8,34 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
-    <nav class="bg-dark p-5 d-flex">
-        <div>
-            @if (Route::has('login'))
-            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                @auth
-                    <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
-                @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
-        
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+    <div class="row bg-dark p-5">
+        <div class="col">
+            <nav class=" navbar navbar-expand-lg d-flex">
+                <div>
+                    @if (Route::has('login'))
+                    <div class="hidden fixed  sm:block">
+                        @auth
+                            <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+                
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                            @endif
+                        @endauth
+                    </div>
                     @endif
-                @endauth
-            </div>
-            @endif
-
+                </div>
+            </nav>
         </div>
-        <div>
-            <a href="/" class="p-5">Home</a>
-            <a href="/article" class="p-5">Articles</a>
-            <a href="/backoffice" class="p-5">Backoffice</a>
-
+        <div class="col">
+            <a href="/" class="px-5">Welcome</a>
+            <a href="/article" class="px-5">Articles</a>
+            <a href="/backoffice" class="px-5">Backoffice</a>
+            <a href="/backoffice" class="px-5">Mon profil</a>
         </div>
-    </nav>
+        
+    </div>
     @yield('content')
     <script src="{{asset('js/main.js')}}"></script>
 </body>

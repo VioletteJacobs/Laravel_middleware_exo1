@@ -2,22 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
-use App\Models\Backoffice;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class BackofficeController extends Controller
+class UserController extends Controller
 {
-    //accès uniquement si on est connectée. 
-    public function __construct()
-    {
-        $this->middleware(["auth", "RoleVerification", "IsWebmaster"]);
-    }
-    // public function __construct()
-    // {
-    //     $this->middleware("isConnected");
-    // }
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +13,7 @@ class BackofficeController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
-        return view("pages.backoffice", compact("articles"));
+        return view("pages.users.user");
     }
 
     /**
@@ -53,10 +40,10 @@ class BackofficeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Backoffice  $backoffice
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Backoffice $backoffice)
+    public function show($id)
     {
         //
     }
@@ -64,10 +51,10 @@ class BackofficeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Backoffice  $backoffice
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Backoffice $backoffice)
+    public function edit($id)
     {
         //
     }
@@ -76,10 +63,10 @@ class BackofficeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Backoffice  $backoffice
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Backoffice $backoffice)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -87,10 +74,10 @@ class BackofficeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Backoffice  $backoffice
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Backoffice $backoffice)
+    public function destroy($id)
     {
         //
     }

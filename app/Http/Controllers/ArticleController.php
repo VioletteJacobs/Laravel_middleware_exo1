@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
+    // acces uniquement si enregistrer 
     public function __construct()
     {
-        $this->middleware("auth")->only(["index"]);
+        $this->middleware(["auth","IsWebmaster", "RoleVerification"]);
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +21,7 @@ class ArticleController extends Controller
      */
     public function index()
     {   $articles = Article::all();
-        return view("pages.article", compact("articles"));
+        return view("pages.article.article", compact("articles"));
     }
 
     /**
@@ -30,7 +32,7 @@ class ArticleController extends Controller
     public function create()
     {
         
-        return view("pages.createArticle" );
+        return view("pages.article.createArticle" );
     }
 
     /**
@@ -57,7 +59,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view("pages.article.showArticle", compact("article"));
     }
 
     /**
@@ -66,10 +68,10 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $edit = Article::find($id);
-        return view ("pages.editArticles", compact("edit"));
+        $users = User::all();
+        return view ("pages.article.editArticles", compact("users", "article"));
     }
 
     /**
@@ -79,14 +81,23 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Article $article)
     {
-        $update = Article::find($id);
-        $update->title = $request->title;
-        $update->text = $request->text;
-        $update->user_id = Auth::user()->id;
-        $update->save();
+        $validate = $request->validate([
+            "title" => "required|string|max:700",
+            "text" => "required"
+        ]);
+        $article->title = $request->title; 
+        $article->text = $request->text;
+        $article->save();
         return redirect("/article");
+
+        // $update = Article::find($id);
+        // $update->title = $request->title;
+        // $update->text = $request->text;
+        // $update->user_id = Auth::user()->id;
+        // $update->save();
+        // return redirect("/article");
     }
 
     /**

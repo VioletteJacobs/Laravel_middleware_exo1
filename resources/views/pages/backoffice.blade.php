@@ -1,6 +1,8 @@
 @extends('template.main')
 @section('content')
 <a href="/article/create"> Créer un article</a>
+<a href="/article/create"> Créer un article</a>
+<a href="/article/create"> Les utilisateurs du site</a>
 <h1>Backoffice</h1>
 <section class="container">
     <h1 class="text-center">Les articles : </h1>
@@ -25,6 +27,10 @@
                           @method("DELETE")
                           <button type="submit" class="btn btn-danger">Delete</button>
                     </form>  
+                    <td>
+                      <a href="/article/{{$item->id}}/edit" class="btn btn-primary">Edit </a>
+
+                    </td>
                     </td>
                 </tr>
                 @endforeach
